@@ -1,7 +1,7 @@
 package com.platform_vatp.model;
 
 public enum Permission {
-    DEVELOPERS_READ("developer:read"),
+    DEVELOPERS_READ("developers:read"),
     DEVELOPERS_WRITE("developers:write");
 
     private final String permission;

@@ -1,6 +1,7 @@
 package com.platform_vatp.rest;
 
 import com.platform_vatp.model.Developer;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,11 +19,13 @@ public class DeveloperRestController {
     ).collect(Collectors.toList());
 
     @GetMapping
+    @PreAuthorize("hasAuthority('developers:read')")
     public List<Developer> getAll(){
         return developers;
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasAuthority('developers:write')")
     public Developer getById(@PathVariable Long id){
 
         return developers.stream().filter(developer -> developer.getId().equals(id))
@@ -31,6 +34,7 @@ public class DeveloperRestController {
     }
 
     @PostMapping
+    @PreAuthorize("hasAuthority('developers:write')")
     public Developer create(@RequestBody Developer developer){
 
         this.developers.add(developer);
@@ -38,6 +42,7 @@ public class DeveloperRestController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAuthority('developers:write')")
     public void deleteById(@PathVariable Long id){
         this.developers.removeIf(developer -> developer.getId().equals(id));
     }
